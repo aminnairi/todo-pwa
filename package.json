@@ -1,0 +1,16 @@
+{
+    "scripts": {
+        "json-server": "json-server database/data.json",
+        "development": "rollup --environment NODE:ENV:development --watch --config rollup.config.js",
+        "production": "rollup --environment NODE_ENV:production --config rollup.config.js"
+    },
+    "dependencies": {
+        "idb": "^5.0.2",
+        "json-server": "^0.16.1"
+    },
+    "devDependencies": {
+        "rollup": "^2.8.0",
+        "rollup-plugin-copy": "^3.3.0",
+        "rollup-plugin-delete": "^1.2.0"
+    }
+}

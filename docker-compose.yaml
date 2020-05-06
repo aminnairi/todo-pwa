@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+    nginx:
+        container_name: nginx
+        restart: always
+        image: nginx:latest
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./production:/usr/share/nginx/html
+            - ./nginx/localhost-key.pem:/etc/ssl/certificates/localhost-key.pem
+            - ./nginx/localhost.pem:/etc/ssl/certificates/localhost.pem
+
+    json-server:
+        container_name: json-server
+        restart: always
+        image: node:latest
+        user: node
+        working_dir: /home/node
+        command: yarn json-server
+        ports:
+            - 8080:8080
+        volumes:
+            - .:/home/node
+
+
+    yarn:
+        image: node:latest
+        user: node
+        tty: true
+        working_dir: /home/node
+        entrypoint: yarn
+        volumes:
+            - .:/home/node

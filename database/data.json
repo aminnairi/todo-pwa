@@ -1,0 +1,9 @@
+{
+    "todos": [
+        {
+            "description": "Do a JSON server clone, but written with Deno instead of Node.js",
+            "done": false,
+            "offline": false
+        }
+    ]
+}

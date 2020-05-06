@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="PWA Project">
+        <meta name="theme-color" content="#FFFFFF">
+
+        <title>PWA Project</title>
+
+        <link rel="manifest" href="/manifest.webmanifest">
+        <link rel="icon" href="/medias/icon.png">
+        <link rel="favicon" href="/medias/icon.png">
+        <link rel="apple-touch-icon" href="/medias/apple-touch-icon.png">
+
+        <script src="/index.js" type="module" async defer></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>Todos</h1>
+        </header>
+
+        <main>
+            <form>
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" placeholder="Do the dishes">
+
+                <button type="submit">Add</button>
+            </form>
+
+            <ul id="todos"></ul>
+        </main>
+    </body>
+</html>
