@@ -1,4 +1,7 @@
-.PHONY: start stop restart development production
+.PHONY: install start stop restart development production
+
+install:
+	docker-compose run --rm yarn
 
 start:
 	docker-compose up --detach nginx json-server
