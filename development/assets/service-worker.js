@@ -30,24 +30,6 @@ const filesAddedToCache = async (cacheName, filesToCache) => {
     }
 }
 
-const cacheOrFallback = async (event) => {
-    console.log(`Trying to find ${event.request.url} from the cache...`);
-
-    try {
-        const response = await caches.match(event.request);
-
-        console.log(`Successfully found ${event.request.url} and returning the response from the cache.`);
-
-        return response;
-    } catch (error) {
-        console.log(`Failed to find ${event.request.url} from the cache and fallback to the index page.`);
-
-        const fallbackResponse = await caches.match("/");
-
-        return fallbackResponse;
-    }
-};
-
 const allCachesDeletedExcept = async (cacheNameToKeep) => {
     console.log(`Gathering all cache names...`);
 
@@ -77,9 +59,32 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("fetch", event => {
-    console.log(`Intercepting ${event.request.url}...`);
+    console.log(`Is ${event.request.url} in the cache?`);
 
-    event.respondWith(cacheOrFallback(event));
+    return event.respondWith(caches.match(event.request).then(cacheResponse => {
+        if (cacheResponse) {
+            console.log(`Yes, ${event.request.url} is in the cache.`);
+
+            return cacheResponse;
+        }
+
+        console.log(`No, ${event.request.url} is not in the cache.`);
+        console.log(`Is ${event.request.url} in the network?`);
+
+        return fetch(event.request).then(fetchedResponse => {
+            if (fetchedResponse) {
+                console.log(`Yes ${event.request.url} is in the network`);
+
+                return fetchedResponse;
+            }
+
+            throw new Error();
+        });
+    }).catch(() => {
+        console.log(`No ${event.request.url} is not in the network`);
+
+        return caches.match("/");
+    }));
 });
 
 self.addEventListener("activate", event => {

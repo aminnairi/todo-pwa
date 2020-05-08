@@ -1,9 +1,22 @@
 {
-    "todos": [
-        {
-            "description": "Do a JSON server clone, but written with Deno instead of Node.js",
-            "done": false,
-            "offline": false
-        }
-    ]
+  "todos": [
+    {
+      "id": 1,
+      "description": "Do the chores",
+      "done": false,
+      "offline": false
+    },
+    {
+      "id": 1588979120630,
+      "description": "Do the dishes",
+      "done": false,
+      "offline": false
+    },
+    {
+      "description": "do the tutorial",
+      "done": true,
+      "offline": false,
+      "id": 1588982002908
+    }
+  ]
 }

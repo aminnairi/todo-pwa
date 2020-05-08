@@ -1,3 +1,10 @@
+import {whenPageIs, goToPage} from "./router.js";
+import {createElement, render} from "./dom.js";
+import {todosNew} from "./pages/todos/new.js";
+import {todoDetails} from "./pages/todo/details.js";
+import {todos} from "./pages/todos.js";
+import {home} from "./pages/home.js";
+
 window.addEventListener("load", async () => {
     console.log("Checking if the browser supports service workers...");
 
@@ -11,7 +18,7 @@ window.addEventListener("load", async () => {
     console.log("Registrating the service worker...");
 
     try {
-        await navigator.serviceWorker.register("./service-worker.js");
+        await navigator.serviceWorker.register("/service-worker.js");
 
         console.log("Registrated the service worker successfully.");
     } catch (error) {
@@ -19,27 +26,10 @@ window.addEventListener("load", async () => {
         console.error(error.message);
     }
 
+    whenPageIs("/", home);
+    whenPageIs("/todos", todos);
+    whenPageIs("/todos/new", todosNew);
+    whenPageIs("/todo/:id", todoDetails);
 
-    console.log("Fetching todos...");
-
-    try {
-        const response = await fetch("http://localhost:8080/todos", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error("Server does not respond with an OK response.");
-        }
-
-        const todos = await response.json();
-
-        console.log(todos);
-    } catch (error) {
-        console.error("Unable to fetch the todos...");
-        console.error(error.message);
-    }
+    goToPage(window.location.pathname)
 });
