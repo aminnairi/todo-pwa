@@ -2,6 +2,7 @@ import copy from "rollup-plugin-copy";
 import remove from "rollup-plugin-delete";
 
 import {resolve} from "path";
+import {terser} from "rollup-plugin-terser";
 
 export default {
     input: resolve("development", "index.js"),
@@ -23,10 +24,12 @@ export default {
             ],
             verbose: true
         }),
+
+        process.env.NODE_ENV === "production" && terser()
     ],
 
     output: {
         file: resolve("production", "index.js"),
         format: "iife"
     }
-}
+};
