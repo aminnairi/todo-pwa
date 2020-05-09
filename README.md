@@ -15,3 +15,9 @@ Command | Description
 `make restart` | Restart the Docker Compose services in the background
 `make development` | Build the development files.
 `make production` | Build the production files.
+
+## Yarn with Docker Compose
+
+```console
+$ docker-compose run --rm yarn --help
+```
