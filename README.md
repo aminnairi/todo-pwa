@@ -1,4 +1,4 @@
-# pwa-project
+# todo-pwa
 
 ## Requirements
 
